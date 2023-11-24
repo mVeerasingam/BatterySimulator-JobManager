@@ -1,5 +1,8 @@
 # BatterySimulator_JobManager 🔋🔄
 ## Authors: Mark Veerasingam and Lucas Jeanes
+
+### JDK: 19. Java: 17
+
 ### Description: 
 ATU 3rd Year CICD 1 Project
 
