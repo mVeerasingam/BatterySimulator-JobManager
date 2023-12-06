@@ -1,0 +1,22 @@
+# This is all temp, just a test for dockerised java->python
+
+version: '3.7'
+
+services:
+  job-manager-service:
+    image: battery-simulator-job-manager:latest
+    ports:
+      - "8083:8083"
+    networks:
+      - my_network
+
+  battery-simulation-service:
+    image: battery-simulator-flask
+    ports:
+      - "8084:8084"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
