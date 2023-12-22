@@ -8,13 +8,14 @@ spring:
     username: guest
     password: guest
 
-destination:
-  service:
-    url: http://localhost:8081/queue/publish
-
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 5000
-        readTimeout: 5000
+rabbitmq:
+  queue:
+    name: message_queue
+    json:
+      name: message_queue_json
+  exchange:
+    name: message_exchange
+  routing:
+    name: message_routingKey
+    json:
+      name: message_routingKey_json
