@@ -1,5 +1,6 @@
 package com.example.batterysimjobmanager_prototype.consumer;
 
+import com.example.batterysimjobmanager_prototype.dto.BatterySim;
 import com.example.batterysimjobmanager_prototype.dto.BatterySimMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,7 @@ public class RabbitMQJsonConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQJsonConsumer.class);
 
     @RabbitListener(queues = {"${rabbitmq.queue.json.name}"})
-    public void consumeJsonMessage(BatterySimMessage simMessage){
-        LOGGER.info(String.format("Received JSON Message -> %s", simMessage.toString()));
+    public void consumeJsonMessage(BatterySim sim){
+        LOGGER.info(String.format("Received JSON Message -> %s", sim.toString()));
     }
 }
