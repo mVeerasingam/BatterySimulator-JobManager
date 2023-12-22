@@ -1,0 +1,21 @@
+server:
+  port: 8083
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  queue:
+    name: message_queue
+    json:
+      name: message_queue_json
+  exchange:
+    name: message_exchange
+  routing:
+    name: message_routingKey
+    json:
+      name: message_routingKey_json
