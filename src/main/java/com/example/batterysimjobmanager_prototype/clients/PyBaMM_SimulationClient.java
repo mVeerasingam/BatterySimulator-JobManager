@@ -1,5 +1,6 @@
-package com.example.batterysimjobmanager_prototype.update_battery;
+package com.example.batterysimjobmanager_prototype.clients;
 
+import com.example.batterysimjobmanager_prototype.dto.BatterySim;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface PyBaMM_SimulationClient {
     // Test Java updating Python battery simulation parameters
     @PostMapping("/simulate")
-    String simulate(@RequestBody BatteryParameters batteryParameters);
+    String simulate(@RequestBody BatterySim batterySim);
 }

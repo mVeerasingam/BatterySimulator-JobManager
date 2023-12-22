@@ -1,4 +1,4 @@
-package com.example.batterysimjobmanager_prototype.update_battery;
+package com.example.batterysimjobmanager_prototype.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BatteryParameters {
+public class BatterySim {
     private double time;
     private double upperVoltage;
     private double lowerVoltage;
