@@ -1,7 +1,6 @@
 package com.example.batterysimjobmanager_prototype.consumer;
 
 import com.example.batterysimjobmanager_prototype.dto.BatterySim;
-import com.example.batterysimjobmanager_prototype.dto.BatterySimMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

@@ -4,12 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BatterySim implements Serializable {
+public class BatterySim {
+    private String id;
     private double time;
     private double upperVoltage;
     private double lowerVoltage;
