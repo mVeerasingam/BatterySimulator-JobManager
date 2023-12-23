@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RabbitMQJsonConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQJsonConsumer.class);
-    private PyBaMM_SimulationClient simulationClient;
+    private final PyBaMM_SimulationClient simulationClient;
     @Autowired
     public RabbitMQJsonConsumer(PyBaMM_SimulationClient simulationClient){
         this.simulationClient = simulationClient;
@@ -21,7 +21,8 @@ public class RabbitMQJsonConsumer {
     @RabbitListener(queues = {"${rabbitmq.queue.json.name}"}, concurrency = "3")
     public void consumeJsonMessage(BatterySimMessage simMessage){
         LOGGER.info(String.format("Received JSON Message -> %s", simMessage.toString()));
-        String results = simulationClient.simulate(simMessage);
-        //LOGGER.info("Received response from PyBaMM simulation service: " + results + " on thread " + Thread.currentThread().getName());
+        simulationClient.simulate(simMessage);
+        //String results = simulationClient.simulate(simMessage);
+        //LOGGER.info("Received response from PyBaMM simulation service: " + results);
     }
 }
