@@ -1,10 +1,9 @@
 package com.example.batterysimjobmanager_prototype.controller;
 
-import com.example.batterysimjobmanager_prototype.consumer.RabbitMQJsonConsumer;
 import com.example.batterysimjobmanager_prototype.clients.PyBaMM_SimulationClient;
-import com.example.batterysimjobmanager_prototype.dto.BatterySim;
+import com.example.batterysimjobmanager_prototype.dto.BatterySimMessage;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,15 +17,13 @@ public class JobManagerController {
         this.simulationClient = simulationClient;
     }
 
-    @PostMapping("/updateBatteryParameters")
-    public String updateBatteryParameters(@RequestBody BatterySim batterySim) {
-        System.out.println("Received request to update battery parameters from Java microservice.");
+    @RabbitListener(queues = "${rabbitmq.queue.json.name}")
+    public void processSimulationRequest(BatterySimMessage simMessage) {
+        System.out.println("Received request to update battery parameters from RabbitMQ queue.");
 
-        // Forward the request to the PyBaMM simulation service
-        String response = simulationClient.simulate(batterySim);
+        // Process the request and update the battery parameters
+        String response = simulationClient.simulate(simMessage);
 
         System.out.println("Received response from PyBaMM simulation service: " + response);
-
-        return response;
     }
 }
