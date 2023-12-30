@@ -15,11 +15,18 @@ public class JobManagerController {
         this.simulationClient = simulationClient;
     }
 
-    @PostMapping("/updateBatteryParameters")
+    @PostMapping("/simulateCell")
     public String updateBatteryParameters(@RequestBody BatterySimMessage simMessage) {
         System.out.println("Received request to update battery parameters from Java microservice.");
-        // Forward the request to the PyBaMM simulation service
-        String response = simulationClient.simulate(simMessage);
+        String response = simulationClient.simulateCell(simMessage);
+        System.out.println("Received response from PyBaMM simulation service: " + response);
+        return response;
+    }
+
+    @PostMapping("/simulateDriveCycle")
+    public String simulateDriveCycle(@RequestBody BatterySimMessage simMessage) {
+        System.out.println("Received request to update battery parameters from Java microservice.");
+        String response = simulationClient.simulateDriveCycle(simMessage);
         System.out.println("Received response from PyBaMM simulation service: " + response);
         return response;
     }
