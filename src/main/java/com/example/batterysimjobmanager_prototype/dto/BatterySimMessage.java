@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BatterySimMessage {
     private String id;
-    private String simulationType;
     private double time;
     private double upperVoltage;
     private double lowerVoltage;
