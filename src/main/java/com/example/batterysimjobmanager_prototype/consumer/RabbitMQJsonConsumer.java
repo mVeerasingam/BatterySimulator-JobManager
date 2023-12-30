@@ -21,8 +21,8 @@ public class RabbitMQJsonConsumer {
     @RabbitListener(queues = {"${rabbitmq.queue.json.name}"}, concurrency = "3")
     public void consumeJsonMessage(BatterySimMessage simMessage){
         LOGGER.info(String.format("Received JSON Message -> %s", simMessage.toString()));
-        simulationClient.simulate(simMessage);
-        //String results = simulationClient.simulate(simMessage);
-        //LOGGER.info("Received response from PyBaMM simulation service: " + results);
+        simulationClient.simulateCell(simMessage);
+        String results = simulationClient.simulateCell(simMessage);
+        LOGGER.info("Received response from PyBaMM simulation service: " + results);
     }
 }
