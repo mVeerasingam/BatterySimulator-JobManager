@@ -24,9 +24,25 @@ public class RabbitMQJsonConsumer {
     @RabbitListener(queues = {"${rabbitmq.queue.json.name}"}, concurrency = "3")
     public void consumeJsonMessage(BatterySimMessage simMessage){
         LOGGER.info(String.format("Received JSON Message -> %s", simMessage.toString()));
-        simulationClient.simulateCell(simMessage);
-        String results = simulationClient.simulateCell(simMessage);
+        //simulationClient.simulateCell(simMessage);
         //dbOperationsClient.simulate(results);
+
+        String results = null;
+        switch (simMessage.getSimulationType()) {
+            case "cell":
+                results = simulationClient.simulateCell(simMessage);
+                break;
+
+            case "driveCycle":
+                results = simulationClient.simulateDriveCycle(simMessage);
+                break;
+
+            default:
+                LOGGER.warn("Invalid simulation type: " + simMessage.getSimulationType() + "" +
+                        "\nUse 'cell' or 'driveCycle'");
+                break;
+        }
         LOGGER.info("Received response from PyBaMM simulation service: " + results);
+
     }
 }

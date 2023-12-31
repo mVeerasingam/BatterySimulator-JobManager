@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class JobManagerController {
-//    private final PyBaMM_SimulationClient simulationClient;
-//    @Autowired
-//    public JobManagerController(PyBaMM_SimulationClient simulationClient){
-//        this.simulationClient = simulationClient;
-//    }
-//
-//    @PostMapping("/simulateCell")
-//    public String updateBatteryParameters(@RequestBody BatterySimMessage simMessage) {
-//        System.out.println("Received request to update battery parameters from Java microservice.");
-//        String response = simulationClient.simulateCell(simMessage);
-//        System.out.println("Received response from PyBaMM simulation service: " + response);
-//        return response;
-//    }
-//
-//    @PostMapping("/simulateDriveCycle")
-//    public String simulateDriveCycle(@RequestBody BatterySimMessage simMessage) {
-//        System.out.println("Received request to update battery parameters from Java microservice.");
-//        String response = simulationClient.simulateDriveCycle(simMessage);
-//        System.out.println("Received response from PyBaMM simulation service: " + response);
-//        return response;
-//    }
+    private final PyBaMM_SimulationClient simulationClient;
+    @Autowired
+    public JobManagerController(PyBaMM_SimulationClient simulationClient){
+        this.simulationClient = simulationClient;
+    }
+
+    @PostMapping("/simulateCell")
+    public String updateBatteryParameters(@RequestBody BatterySimMessage simMessage) {
+        System.out.println("Received request to update battery parameters from Java microservice.");
+        String response = simulationClient.simulateCell(simMessage);
+        System.out.println("Received response from PyBaMM simulation service: " + response);
+        return response;
+    }
+
+    @PostMapping("/simulateDriveCycle")
+    public String simulateDriveCycle(@RequestBody BatterySimMessage simMessage) {
+        System.out.println("Received request to update battery parameters from Java microservice.");
+        String response = simulationClient.simulateDriveCycle(simMessage);
+        System.out.println("Received response from PyBaMM simulation service: " + response);
+        return response;
+    }
 }
