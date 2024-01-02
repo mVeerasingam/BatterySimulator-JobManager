@@ -1,22 +1,39 @@
-# This is all temp, just a test for dockerised java->python
-
 version: '3.7'
 
 services:
+
+  rabbitmq:
+    image: rabbitmq:3.12.10-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - rabbitmq_go_net
+
   job-manager-service:
     image: battery-simulator-job-manager:latest
     ports:
       - "8083:8083"
     networks:
-      - my_network
+      - rabbitmq_go_net
+
+  queue-service:
+    image: battery-simulator-queue-service:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - rabbitmq_go_net
 
   battery-simulation-service:
     image: battery-simulator-flask
     ports:
       - "8084:8084"
     networks:
-      - my_network
+      - rabbitmq_go_net
 
 networks:
-  my_network:
+  rabbitmq_go_net:
     driver: bridge
