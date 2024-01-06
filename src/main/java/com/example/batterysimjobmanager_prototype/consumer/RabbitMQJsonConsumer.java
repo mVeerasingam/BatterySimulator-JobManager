@@ -18,16 +18,27 @@ public class RabbitMQJsonConsumer {
     private String latestSimulationResults;
 
     @Autowired
-    public RabbitMQJsonConsumer(PyBaMM_SimulationClient simulationClient, DbOperations_Client dbOperationsClient){
+    public RabbitMQJsonConsumer(PyBaMM_SimulationClient simulationClient, DbOperations_Client dbOperationsClient) {
         this.simulationClient = simulationClient;
         this.dbOperationsClient = dbOperationsClient;
     }
 
     @Async
     @RabbitListener(queues = {"${rabbitmq.queue.json.name}"}, concurrency = "3")
-    public void consumeJsonMessage(BatterySimMessage simMessage){
+    public void consumeJsonMessage(BatterySimMessage simMessage) {
         LOGGER.info(String.format("Received JSON Message -> %s", simMessage.toString()));
 
+        String results = processSimulation(simMessage);
+        latestSimulationResults = results;
+        LOGGER.info("Received response from PyBaMM simulation service: " + results);
+    }
+
+    // retrieve the latest simulation results
+    public String getLatestSimulationResults() {
+        return latestSimulationResults;
+    }
+
+    private String processSimulation(BatterySimMessage simMessage) {
         String results = null;
         switch (simMessage.getSimulationType()) {
             case "cell":
@@ -39,19 +50,11 @@ public class RabbitMQJsonConsumer {
                 break;
 
             default:
-                LOGGER.warn("Invalid simulation type: " + simMessage.getSimulationType() + "" +
-                        "\nUse 'cell' or 'driveCycle'");
-                // Provide a default or error result
+                LOGGER.warn("Invalid simulation type: " + simMessage.getSimulationType() + "\nUse 'cell' or 'driveCycle'");
                 results = "Invalid simulation type: " + simMessage.getSimulationType() +
                         ". Use 'cell' or 'driveCycle'";
                 break;
         }
-        latestSimulationResults = results;
-        LOGGER.info("Received response from PyBaMM simulation service: " + results);
-    }
-
-    // retrieve the latest simulation results
-    public String getLatestSimulationResults() {
-        return latestSimulationResults;
+        return results;
     }
 }
