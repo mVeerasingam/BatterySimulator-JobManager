@@ -1,7 +1,6 @@
 package com.example.batterysimjobmanager_prototype.consumer;
 
 import com.example.batterysimjobmanager_prototype.clients.DbOperations_Client;
-import com.example.batterysimjobmanager_prototype.clients.PyBaMM_SimulationClient;
 import com.example.batterysimjobmanager_prototype.dto.BatterySimMessage;
 import com.example.batterysimjobmanager_prototype.service.SimulationService;
 import org.slf4j.Logger;
@@ -32,6 +31,7 @@ public class RabbitMQJsonConsumer {
         String results = simulationService.processSimulation(simMessage);
         latestSimulationResults = results;
         LOGGER.info("Received response from PyBaMM simulation service: " + results);
+        dbOperationsClient.simulate(results);
     }
 
     // retrieve the latest simulation from the queue
