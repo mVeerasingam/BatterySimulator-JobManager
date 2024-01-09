@@ -18,6 +18,13 @@ public class SimulationService {
     }
 
     public String processSimulation(BatterySimMessage simMessage) {
+        // Check if voltage inputs are lower than 0
+        if (simMessage.getUpperVoltage() < 0 || simMessage.getLowerVoltage() < 0) {
+            LOGGER.warn("Invalid voltage inputs: Upper and lower voltage values must be positive.\n" +
+                    "Simulation Failed. For Best simulation Results, solve between 2.5V-4.2V");
+            return "Invalid voltage inputs: Upper and lower voltage values must be non-negative.";
+        }
+
         String results = null;
         switch (simMessage.getSimulationType()) {
             case "cell":
