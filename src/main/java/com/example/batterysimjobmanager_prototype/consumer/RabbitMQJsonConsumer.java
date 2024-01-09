@@ -31,7 +31,7 @@ public class RabbitMQJsonConsumer {
         String results = simulationService.processSimulation(simMessage);
         latestSimulationResults = results;
         LOGGER.info("Received response from PyBaMM simulation service: " + results);
-        dbOperationsClient.simulate(results);
+        dbOperationsClient.saveSimulation(results);
     }
 
     // retrieve the latest simulation from the queue
