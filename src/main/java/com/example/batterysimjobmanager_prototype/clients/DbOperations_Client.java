@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface DbOperations_Client {
     // Test Java updating Python battery simulation parameters
     @PostMapping("/createSimulation")
-    String simulate(@RequestBody String simResults);
+    String saveSimulation(@RequestBody String simResults);
 }
