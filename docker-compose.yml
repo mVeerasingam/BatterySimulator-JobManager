@@ -27,6 +27,13 @@ services:
     networks:
       - rabbitmq_go_net
 
+  database:
+    image: battery-simulator-database:latest
+    ports:
+      - "8082:8082"
+    networks:
+      - rabbitmq_go_net
+
   battery-simulation-service:
     image: battery-simulator-flask
     ports:
