@@ -2,11 +2,8 @@ package com.example.batterysimjobmanager_prototype.controller;
 
 import com.example.batterysimjobmanager_prototype.clients.PyBaMM_SimulationClient;
 import com.example.batterysimjobmanager_prototype.consumer.RabbitMQJsonConsumer;
-import com.example.batterysimjobmanager_prototype.dto.BatterySimMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,22 +17,17 @@ public class JobManagerController {
         this.rabbitMQJsonConsumer = consumer;
     }
 
+    // retrieves the next simulation results from the queue
     @GetMapping("/getSimulation")
     public String getSimulationFromQueue(){
-        return rabbitMQJsonConsumer.getLatestSimulationResults();
+        // Check if there's something in the queue
+        String simulationResults = rabbitMQJsonConsumer.getLatestSimulationResults();
+
+        //check if the queue simulation results are empty
+        if (simulationResults != null && !simulationResults.isEmpty()) {
+            return simulationResults;
+        } else {
+            return "Queue is empty";
+        }
     }
-//    @PostMapping("/simulateCell")
-//    public String updateBatteryParameters(@RequestBody BatterySimMessage simMessage) {
-//        System.out.println("Received request to update battery parameters from Java microservice.");
-//        String response = simulationClient.simulateCell(simMessage);
-//        System.out.println("Received response from PyBaMM simulation service: " + response);
-//        return response;
-//    }
-//    @PostMapping("/simulateDriveCycle")
-//    public String simulateDriveCycle(@RequestBody BatterySimMessage simMessage) {
-//        System.out.println("Received request to update battery parameters from Java microservice.");
-//        String response = simulationClient.simulateDriveCycle(simMessage);
-//        System.out.println("Received response from PyBaMM simulation service: " + response);
-//        return response;
-//    }
 }
