@@ -22,13 +22,16 @@ Job manager updates the database if and when the simulation is succesfully compl
     
 - You can pull each of the images individually
   
-``
-docker pull mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-database
-docker pull mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-flask
-docker pull mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-job-manager
-docker pull mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-queue-service
-docker pull mveerasingam/batterysimulator_jobmanagerservice:rabbitmq
-``
+```docker pull mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-database```
+
+```docker pull mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-flask```
+
+```docker pull mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-job-manager```
+
+```docker pull mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-queue-service```
+
+```docker pull mveerasingam/batterysimulator_jobmanagerservice:rabbitmq```
+
 
 - We've updated the [Docker Compose File in Job Manager to Containerise the above images from Docker](https://github.com/mVeerasingam/BatterySimulator-JobManager/blob/master/docker-compose.yml)
 
