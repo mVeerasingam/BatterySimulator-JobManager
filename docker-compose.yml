@@ -3,7 +3,8 @@ version: '3.7'
 services:
 
   rabbitmq:
-    image: rabbitmq:3.12.10-management
+    image: mveerasingam/batterysimulator_jobmanagerservice:rabbitmq
+    #image: rabbitmq:3.12.10-management
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -14,7 +15,8 @@ services:
       - rabbitmq_go_net
 
   job-manager-service:
-    image: battery-simulator-job-manager:latest
+    image: mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-job-manager
+    #image: battery-simulator-job-manager:latest
     ports:
       - "8083:8083"
     networks:
@@ -22,21 +24,24 @@ services:
       - database_net
 
   queue-service:
-    image: battery-simulator-queue-service:latest
+    image: mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-queue-service
+    #image: battery-simulator-queue-service:latest
     ports:
       - "8081:8081"
     networks:
       - rabbitmq_go_net
 
   database:
-    image: battery-simulator-database:latest
+    image:  mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-database
+    #image: battery-simulator-database:latest
     ports:
       - "8082:8082"
     networks:
       - database_net
 
   battery-simulation-service:
-    image: battery-simulator-flask
+    image: mveerasingam/batterysimulator_jobmanagerservice:battery-simulator-flask
+    #image: battery-simulator-flask
     ports:
       - "8084:8084"
     networks:
